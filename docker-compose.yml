@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 volumes:
     prometheus_data: {}
@@ -27,16 +27,16 @@ services:
       - 9090:9090
     links:
       - cadvisor:cadvisor
-      - alertmanager:alertmanager
+      # - alertmanager:alertmanager
     depends_on:
       - cadvisor
     networks:
       - back-tier
-  
+
   node-exporter:
     container_name: node-exporter
     image: prom/node-exporter
-    volumes: 
+    volumes:
       - /proc:/host/proc
       - /sys:/host/sys
       - /:/rootfs
@@ -52,14 +52,14 @@ services:
     image: prom/alertmanager
     ports:
       - 9093:9093
-    volumes: 
+    volumes:
       - ./alertmanager/:/etc/alertmanager/
     networks:
       - back-tier
     command:
       - '-config.file=/etc/alertmanager/config.yml'
       - '-storage.path=/alertmanager'
-      
+
   cadvisor:
     image: google/cadvisor
     volumes:
@@ -71,17 +71,34 @@ services:
       - 8080
     networks:
       - back-tier
-  
+
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:4.3.2
     depends_on:
       - prometheus
     ports:
-      - 3000:3000
+      - 34219:34219
     volumes:
       - grafana_data:/var/lib/grafana
+      #- ./conf/grafana.ini:/etc/grafana/grafana.ini
     env_file:
       - config.monitoring
-    networks:
-      - back-tier
-      - front-tier
+    # networks:
+    #   - front-tier
+    #   - back-tier
+
+  # nginx:
+  #   image: nginx:alpine
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - ./proxy.conf:/etc/nginx/conf.d/proxy.conf
+
+  # caddy:
+  #   image: abiosoft/caddy:latest
+  #   restart: always
+  #   #command: --log stdout --conf /etc/Caddyfile --http2=false
+  #   volumes:
+  #     - ./Caddyfile:/etc/Caddyfile
+  #   ports:
+  #     - 80:80
