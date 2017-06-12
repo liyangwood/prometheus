@@ -1,1 +1,2 @@
 GF_SERVER_HTTP_PORT=34219
+GF_SERVER_ROOT_URL=http://monitoring.dev.vsm.ihealthnext.com/
