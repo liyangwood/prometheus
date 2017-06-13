@@ -9,24 +9,24 @@ networks:
     external: false
 
 services:
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus/:/etc/prometheus/
-      - prometheus_data:/prometheus
-    command:
-      - '-config.file=/etc/prometheus/prometheus.yml'
-      - '-storage.local.path=/prometheus'
-      - '-alertmanager.url=http://alertmanager:9093'
-    ports:
-      - 9090:9090
-    links:
-      - cadvisor:cadvisor
-      # - alertmanager:alertmanager
-    networks:
-      - default
-    deploy:
-      mode: global
+  # prometheus:
+  #   image: prom/prometheus
+  #   volumes:
+  #     - ./prometheus/:/etc/prometheus/
+  #     - prometheus_data:/prometheus
+  #   command:
+  #     - '-config.file=/etc/prometheus/prometheus.yml'
+  #     - '-storage.local.path=/prometheus'
+  #     - '-alertmanager.url=http://alertmanager:9093'
+  #   ports:
+  #     - 9090:9090
+  #   links:
+  #     - cadvisor:cadvisor
+  #     # - alertmanager:alertmanager
+  #   networks:
+  #     - default
+  #   deploy:
+  #     mode: global
 
 #  node-exporter:
 #    container_name: node-exporter
@@ -55,29 +55,29 @@ services:
 #      - '-config.file=/etc/alertmanager/config.yml'
 #      - '-storage.path=/alertmanager'
 
-  cadvisor:
-    image: google/cadvisor
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - default
-    deploy:
-      mode: global
+  # cadvisor:
+  #   image: google/cadvisor
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   networks:
+  #     - default
+  #   deploy:
+  #     mode: global
 
-#  grafana:
-#    image: grafana/grafana:4.3.2
-#    depends_on:
-#      - prometheus
-#    ports:
-#      - 34219:34219
-#    volumes:
-#      - grafana_data:/var/lib/grafana
-      #- ./conf/grafana.ini:/etc/grafana/grafana.ini
-#    env_file:
-#      - config.monitoring
+ grafana:
+   image: grafana/grafana:4.3.2
+   depends_on:
+     - prometheus
+   ports:
+     - 34219:34219
+   volumes:
+     - grafana_data:/var/lib/grafana
+   # - ./conf/grafana.ini:/etc/grafana/grafana.ini
+   env_file:
+     - config.monitoring
     # networks:
     #   - front-tier
     #   - back-tier
