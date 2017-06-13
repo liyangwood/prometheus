@@ -1,5 +1,5 @@
-:80 {
-  proxy /monitor http://grafana:34219 {
+monitor.vsm.com:80 {
+  proxy / http://grafana:34219 {
     transparent
   }
 }
