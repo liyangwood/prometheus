@@ -66,29 +66,26 @@ services:
   #     - default
   #   deploy:
   #     mode: global
-
- grafana:
-   image: grafana/grafana:4.3.2
-   depends_on:
-     - prometheus
-   ports:
-     - 34219:34219
-   volumes:
-     - grafana_data:/var/lib/grafana
+  grafana:
+    image: grafana/grafana:4.3.2
+    # depends_on:
+    #   - prometheus
+    ports:
+      - 34219:34219
+    volumes:
+      - grafana_data:/var/lib/grafana
    # - ./conf/grafana.ini:/etc/grafana/grafana.ini
-   env_file:
-     - config.monitoring
+    env_file:
+      - config.monitoring
     # networks:
     #   - front-tier
     #   - back-tier
-
   # nginx:
   #   image: nginx:alpine
   #   ports:
   #     - 80:80
   #   volumes:
   #     - ./proxy.conf:/etc/nginx/conf.d/proxy.conf
-
   caddy:
     image: abiosoft/caddy:latest
     restart: always
