@@ -4,6 +4,9 @@ volumes:
     prometheus_data: {}
     grafana_data: {}
 
+networks:
+  default:
+    external: false
 
 services:
   prometheus:
@@ -20,6 +23,8 @@ services:
     links:
       - cadvisor:cadvisor
       # - alertmanager:alertmanager
+    networks:
+      - default
 
 #  node-exporter:
 #    container_name: node-exporter
@@ -55,6 +60,8 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - default
 
 #  grafana:
 #    image: grafana/grafana:4.3.2
