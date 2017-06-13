@@ -89,11 +89,11 @@ services:
   #   volumes:
   #     - ./proxy.conf:/etc/nginx/conf.d/proxy.conf
 
-  # caddy:
-  #   image: abiosoft/caddy:latest
-  #   restart: always
-  #   #command: --log stdout --conf /etc/Caddyfile --http2=false
-  #   volumes:
-  #     - ./Caddyfile:/etc/Caddyfile
-  #   ports:
-  #     - 80:80
+  caddy:
+    image: abiosoft/caddy:latest
+    restart: always
+    #command: --log stdout --conf /etc/Caddyfile --http2=false
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+    ports:
+      - 80:80

@@ -1,4 +1,4 @@
-vsm.cc:80 {
+:80 {
   proxy / http://grafana:34219 {
     transparent
   }
