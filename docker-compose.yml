@@ -25,6 +25,8 @@ services:
       # - alertmanager:alertmanager
     networks:
       - default
+    deploy:
+      mode: global
 
 #  node-exporter:
 #    container_name: node-exporter
@@ -62,6 +64,8 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - default
+    deploy:
+      mode: global
 
 #  grafana:
 #    image: grafana/grafana:4.3.2
