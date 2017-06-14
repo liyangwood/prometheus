@@ -31,32 +31,20 @@ services:
         constraints:
           - node.role == manager
 
-   node-exporter:
-     image: prom/node-exporter
-     volumes:
-       - /proc:/host/proc
-       - /sys:/host/sys
-       - /:/rootfs
-     command:
-       - '-collector.procfs=/host/proc'
-       - '-collector.sysfs=/host/sysfs'
-       - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
-     expose:
-       - 9100
-     deploy:
-       mode: global
-
-#  alertmanager:
-#    image: prom/alertmanager
-#    ports:
-#      - 9093:9093
-#    volumes:
-#      - ./alertmanager/:/etc/alertmanager/
-#    networks:
-#      - back-tier
-#    command:
-#      - '-config.file=/etc/alertmanager/config.yml'
-#      - '-storage.path=/alertmanager'
+  #  node-exporter:
+  #    image: prom/node-exporter
+  #    volumes:
+  #      - /proc:/host/proc
+  #      - /sys:/host/sys
+  #      - /:/rootfs
+  #    command:
+  #      - '-collector.procfs=/host/proc'
+  #      - '-collector.sysfs=/host/sysfs'
+  #      - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+  #    expose:
+  #      - 9100
+  #    deploy:
+  #      mode: global
 
   cadvisor:
     image: google/cadvisor
